@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="StaySuite Hotel Room Manager — a modern hotel room and reservation dashboard." />
+  <title>StaySuite | Hotel Room Manager</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <a class="brand" href="#"><span class="brand-mark">S</span><span>StaySuite<small>HOTEL MANAGEMENT</small></span></a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="nav">
+        <button class="nav-link active" data-view="overview"><span>▦</span> Overview</button>
+        <button class="nav-link" data-view="rooms"><span>▤</span> Room management</button>
+        <button class="nav-link" data-view="bookings"><span>▣</span> Reservations</button>
+        <button class="nav-link" data-view="guests"><span>♙</span> Guests</button>
+      </nav>
+      <div class="side-label">MANAGEMENT</div>
+      <nav class="nav">
+        <button class="nav-link" data-view="reports"><span>▥</span> Reports</button>
+        <button class="nav-link" data-view="founder"><span>✦</span> Project founder</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="help-card"><div class="help-icon">✧</div><b>Need a hand?</b><p>Manage your hotel smoothly with StaySuite.</p><button id="helpBtn">Quick guide ↗</button></div>
+        <div class="profile-mini"><div class="avatar">PR</div><div><b>Purushotam Reddy</b><small>Project Founder</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="mobile-menu" id="menuBtn" aria-label="Open menu">☰</button>
+        <div class="crumb">Workspace <span>/</span> <b id="pageCrumb">Overview</b></div>
+        <div class="top-actions">
+          <div class="today" id="todayLabel"></div>
+          <button class="icon-btn" id="themeBtn" title="Toggle theme">☼</button>
+          <button class="user-chip" id="profileBtn"><span class="avatar small">PR</span><span>Admin</span><span>⌄</span></button>
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="welcome-row">
+          <div><div class="eyebrow">HOTEL OPERATIONS</div><h1 id="pageTitle">Good morning, Admin <span>✦</span></h1><p class="muted" id="pageSubtitle">Here’s what’s happening at your hotel today.</p></div>
+          <button class="primary-btn" id="newBookingBtn">＋ New reservation</button>
+        </div>
+
+        <section class="view active" id="overviewView">
+          <div class="stat-grid">
+            <article class="stat-card"><div class="stat-top"><span>Total rooms</span><span class="stat-icon lilac">▤</span></div><strong id="totalRooms">24</strong><small><i class="dot purple"></i> Across all room types</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Available rooms</span><span class="stat-icon mint">✓</span></div><strong id="availableRooms">16</strong><small><i class="dot green"></i> Ready for check-in</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Occupied rooms</span><span class="stat-icon peach">♙</span></div><strong id="occupiedRooms">6</strong><small><i class="dot orange"></i> Currently checked in</small></article>
+            <article class="stat-card"><div class="stat-top"><span>Reservations</span><span class="stat-icon blue">▣</span></div><strong id="bookingCount">8</strong><small><i class="dot blue-dot"></i> Saved in this browser</small></article>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel occupancy-panel">
+              <div class="panel-heading"><div><h2>Room occupancy</h2><p class="muted">Live snapshot of room status</p></div><span class="tag">TODAY</span></div>
+              <div class="occupancy-content"><div class="donut" id="donut"><div><strong id="occupancyPercent">25%</strong><small>Occupied</small></div></div>
+                <div class="legend"><div><i class="legend-dot green"></i><span>Available</span><b id="legendAvailable">16</b></div><div><i class="legend-dot orange"></i><span>Occupied</span><b id="legendOccupied">6</b></div><div><i class="legend-dot gray"></i><span>Maintenance</span><b id="legendMaintenance">2</b></div></div></div>
+            </article>
+            <article class="panel quick-panel"><div class="panel-heading"><div><h2>Quick actions</h2><p class="muted">Common front-desk tasks</p></div></div>
+              <div class="quick-actions"><button data-action="booking"><span class="quick-icon lavender">＋</span><span><b>Add reservation</b><small>Create a guest booking</small></span><span class="arrow">↗</span></button><button data-action="rooms"><span class="quick-icon green-bg">▤</span><span><b>View rooms</b><small>Check room availability</small></span><span class="arrow">↗</span></button><button data-action="reports"><span class="quick-icon peach-bg">▥</span><span><b>View reports</b><small>See hotel statistics</small></span><span class="arrow">↗</span></button></div>
+            </article>
+          </div>
+
+          <article class="panel table-panel"><div class="panel-heading"><div><h2>Recent reservations</h2><p class="muted">Latest bookings in your system</p></div><button class="text-btn" data-goto="bookings">View all →</button></div><div class="table-wrap"><table><thead><tr><th>GUEST</th><th>ROOM</th><th>CHECK-IN</th><th>CHECK-OUT</th><th>STATUS</th></tr></thead><tbody id="recentBookings"></tbody></table></div></article>
+        </section>
+
+        <section class="view" id="roomsView">
+          <div class="section-toolbar"><div><h2>Room inventory</h2><p class="muted">Manage room status and availability.</p></div><div class="toolbar-controls"><input id="roomSearch" placeholder="Search room..." /><select id="roomFilter"><option value="all">All statuses</option><option>Available</option><option>Occupied</option><option>Maintenance</option></select></div></div>
+          <div class="room-grid" id="roomGrid"></div>
+        </section>
+
+        <section class="view" id="bookingsView">
+          <div class="section-toolbar"><div><h2>Reservations</h2><p class="muted">Create, search and manage guest reservations.</p></div><div class="toolbar-controls"><input id="bookingSearch" placeholder="Search guest or room..." /><button class="primary-btn compact" id="bookingPageAdd">＋ Add booking</button></div></div>
+          <article class="panel table-panel"><div class="table-wrap"><table><thead><tr><th>GUEST</th><th>EMAIL</th><th>ROOM</th><th>CHECK-IN</th><th>CHECK-OUT</th><th>STATUS</th><th>ACTION</th></tr></thead><tbody id="allBookings"></tbody></table></div></article>
+        </section>
+
+        <section class="view" id="guestsView">
+          <div class="section-toolbar"><div><h2>Guest directory</h2><p class="muted">Guest details from saved reservations.</p></div></div><div class="guest-grid" id="guestGrid"></div>
+        </section>
+
+        <section class="view" id="reportsView">
+          <div class="section-toolbar"><div><h2>Hotel reports</h2><p class="muted">A quick summary of your current hotel data.</p></div></div>
+          <div class="report-grid"><article class="panel report-card"><span class="report-symbol">▤</span><small>ROOM UTILIZATION</small><strong id="reportUtil">25%</strong><p class="muted">Share of all rooms currently occupied.</p></article><article class="panel report-card"><span class="report-symbol">▣</span><small>TOTAL BOOKINGS</small><strong id="reportBookings">8</strong><p class="muted">Reservations stored in this browser.</p></article><article class="panel report-card"><span class="report-symbol">₹</span><small>ESTIMATED BOOKING VALUE</small><strong id="reportRevenue">₹0</strong><p class="muted">Based on sample room rates and nights.</p></article></div>
+          <article class="panel"><h2>Room status breakdown</h2><div class="bar-list" id="statusBars"></div></article>
+        </section>
+
+        <section class="view" id="founderView">
+          <div class="founder-layout panel"><div class="founder-photo-wrap"><img src="assets/founder.jpg" alt="Project founder Purushotam Reddy" class="founder-photo"></div><div class="founder-info"><div class="eyebrow">PROJECT CREDITS</div><h2>Meet the Founder</h2><h1>Purushotam Reddy</h1><p class="muted">Founder & Project Developer</p><p>Hotel Room Manager is a hotel operations mini-project designed to make room tracking, guest reservations and front-desk activities easier through a clean, responsive dashboard.</p><div class="founder-pills"><span>Hotel Management</span><span>Web Development</span><span>Room Booking</span></div><div class="founder-note">“Simple tools. Smoother stays.”</div></div></div>
+        </section>
+      </section>
+      <footer>© <span id="year"></span> StaySuite Hotel Room Manager <span>•</span> Project by <b>Purushotam Reddy</b></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="bookingModal" aria-hidden="true"><div class="modal"><div class="modal-head"><div><div class="eyebrow">FRONT DESK</div><h2>New reservation</h2></div><button class="close-btn" data-close>×</button></div>
+    <form id="bookingForm"><label>Guest full name<input name="guest" required minlength="2" placeholder="Enter guest name"></label><label>Email address<input name="email" type="email" required placeholder="guest@example.com"></label><div class="form-row"><label>Room<select name="room" id="bookingRoom" required></select></label><label>Guests<select name="people"><option>1</option><option selected>2</option><option>3</option><option>4</option></select></label></div><div class="form-row"><label>Check-in<input type="date" name="checkin" id="checkin" required></label><label>Check-out<input type="date" name="checkout" id="checkout" required></label></div><label>Special request <textarea name="notes" rows="2" placeholder="Optional notes for the front desk"></textarea></label><div class="form-error" id="formError"></div><button class="primary-btn full" type="submit">Save reservation</button></form>
+  </div></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
